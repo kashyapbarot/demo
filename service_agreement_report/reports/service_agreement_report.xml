@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="paperformat_service_agreement" model="report.paperformat">
+        <field name="name">Service Agreement A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">4</field>
+        <field name="margin_bottom">13</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_spacing">5</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_service_agreement" model="ir.actions.report">
+        <field name="name">Service Agreement</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">service_agreement_report.report_service_agreement</field>
+        <field name="report_file">service_agreement_report.report_service_agreement</field>
+        <field name="paperformat_id" ref="service_agreement_report.paperformat_service_agreement"/>
+        <field name="print_report_name">'Service Agreement'</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <template id="layout_service_agreement">
+        <t t-call="web.html_container">
+            <t t-if="not o" t-set="o" t-value="doc"/>
+            <div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-out="0"/>
+            </div>
+            <div t-attf-class="footer agreement-footer">
+                <div class="row mt-2">
+                    <div class="web-info">
+                        <p>©SCAR, LLC dba GlassTech | 1445 Jupiter Park Dr. STE #11, Jupiter, FL 33458 |  
+                            <b> www.gtrestore.com </b>
+                        </p>
+                    </div>
+                    <div class="pager">
+                        <p class="page-no">Pg <span class="page"/> of <span class="topage"/></p>
+                        <p>Service Agreement 2020</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_service_agreement_document">
+        <t t-call="service_agreement_report.layout_service_agreement">
+            <div class="page new-page">
+                <div class="oe_structure"/>
+                <div class="row head mb-2">
+                    <div class="col-4">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo"/>
+                    </div>
+                    <div class="col-8 text-center title">
+                        <strong class="h3">
+                            <b>STANDARD SERVICE AGREEMENT</b>
+                        </strong>
+                    </div>
+                </div>
+                <div class="division row"/>
+                <div class="instruction">
+                    <p>
+                        <b>Instructions:</b>
+                        <br/>
+                        Complete all applicable fields, read the agreements on reverse side and sign
+                        <br/>
+                        <b>Recordkeeper Instructions:</b>
+                        <br/>
+                        Ensure all appropriate fields are complete and accurate. Have signee correct any discrepancies and resubmit. Once complete, send a copy to client and file in client's folder.
+                    </p>
+                </div>
+                <div class="row mt-2"/>
+                <div class="row">
+                    <div class="col-8 information-div">
+                        <div class="text-center title">
+                            <strong>CLIENT/PROPERTY INFORMATION</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Client Full Name (or Company Name)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <label class="text-muted">Client Phone</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Client Email</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <label class="text-muted">Preferred Method of Contact</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-80">
+                                    <label class="text-muted">Service Location (Street Address)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-20">
+                                    <label class="text-muted">Service Location (Unit)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Service Location (City)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-15">
+                                    <label class="text-muted">State</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-15">
+                                    <label class="text-muted">Zip Code</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center title">
+                            <strong>CLIENT/PROPERTY INFORMATION</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Client Full Name (or Company Name)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <label class="text-muted">Client Phone</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Client Email</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <label class="text-muted">Preferred Method of Contact</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-80">
+                                    <label class="text-muted">Service Location (Street Address)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-20">
+                                    <label class="text-muted">Service Location (Unit)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Service Location (City)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-15">
+                                    <label class="text-muted">State</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-15">
+                                    <label class="text-muted">Zip Code</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 office-use information-div">
+                        <div class="text-center title">
+                            <strong>FOR OFFICE USE ONLY</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-70">
+                                    <label class="text-muted">Agreement Number</label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <label class="text-muted">Date of Agreement</label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-100">
+                                    <label class="text-muted">Account Manager</label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-100">
+                                    <label class="text-muted">Referral Source</label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-100">
+                                    <label class="text-muted">Name of Reference</label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div w-100">
+                                    <label class="text-muted">Additional Notes</label>
+                                    <textarea class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2"/>
+                <div class="row">
+                    <div class="col-12 information-div">
+                        <div class="text-center title">
+                            <strong>SPECIAL INSTRUCTIONS</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-100">
+                                    <textarea type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 information-div">
+                        <div class="text-center title">
+                            <strong>SCOPE OF WORK</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-100">
+                                    <textarea type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </div>
+            <div class="page new-page">
+                <div class="row mt-2"/>
+                <div class="row">
+                    <div class="col-12 information-div">
+                        <div class="text-center title">
+                            <strong>CLIENT INFORMATION</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-40">
+                                    <label class="text-muted">Client Full Name (or Company Name)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-40">
+                                    <label class="text-muted">Contractor Contact</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-20">
+                                    <label class="text-muted">Agreement Number</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2"/>
+                <div class="row">
+                    <div class="col-7 information-div">
+                        <div class="text-center title">
+                            <strong>SERVICES PROVIDED &amp; ITEMIZED COSTS</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row align-items-center">
+                                <div class="text-div w-10">
+                                    <input type="checkbox" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <span class="h6"><strong>Metal Coating</strong></span>
+                                </div>
+                                <div class="text-div w-20">
+                                    <span class="h6"><strong>------------></strong></span>
+                                </div>
+                                <div class="text-div w-10">
+                                    <span class="h6"><strong>Price:</strong></span>
+                                </div>
+                                <div class="text-div w-30">
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="text-div w-10">
+                                    <input type="checkbox" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <span class="h6"><strong>Metal Coating</strong></span>
+                                </div>
+                                <div class="text-div w-20">
+                                    <span class="h6"><strong>------------></strong></span>
+                                </div>
+                                <div class="text-div w-10">
+                                    <span class="h6"><strong>Price:</strong></span>
+                                </div>
+                                <div class="text-div w-30">
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="text-div w-10">
+                                    <input type="checkbox" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <span class="h6"><strong>Metal Coating</strong></span>
+                                </div>
+                                <div class="text-div w-20">
+                                    <span class="h6"><strong>------------></strong></span>
+                                </div>
+                                <div class="text-div w-10">
+                                    <span class="h6"><strong>Price:</strong></span>
+                                </div>
+                                <div class="text-div w-30">
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="text-div w-10">
+                                    <input type="checkbox" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <span class="h6"><strong>Metal Coating</strong></span>
+                                </div>
+                                <div class="text-div w-20">
+                                    <span class="h6"><strong>------------></strong></span>
+                                </div>
+                                <div class="text-div w-10">
+                                    <span class="h6"><strong>Price:</strong></span>
+                                </div>
+                                <div class="text-div w-30">
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <div class="text-div w-10">
+                                    <input type="checkbox" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-30">
+                                    <span class="h6"><strong>Metal Coating</strong></span>
+                                </div>
+                                <div class="text-div w-20">
+                                    <span class="h6"><strong>------------></strong></span>
+                                </div>
+                                <div class="text-div w-10">
+                                    <span class="h6"><strong>Price:</strong></span>
+                                </div>
+                                <div class="text-div w-30">
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 total-cost-service information-div">
+                        <div class="text-center title">
+                            <strong>TOTAL COST OF SERVICES</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div col-4">
+                                </div>
+                                <div class="text-div col-8">
+                                    <label class="text-end"><b>Sub Total:</b></label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-4">
+                                    <label class="text-start"><b>Sales Tax:</b></label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                                <div class="text-div col-8">
+                                    <label class="text-end"><b>Total Price:</b></label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-4">
+                                    <label class="text-start"><b>Deposit %:</b></label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                                <div class="text-div col-8">
+                                    <label class="text-end"><b>Deposit Amount:</b></label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-4">
+                                    <label class="text-start"></label>
+                                    <button class="btn btn">Clear Calculator</button>
+                                </div>
+                                <div class="text-div col-8">
+                                    <label class="text-end"><b>Balance Due:</b></label>
+                                    <input type="text" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2"/>
+                <div class="row">
+                    <div class="col-12 information-div">
+                        <div class="text-center title">
+                            <strong>IMPORTANT CONSUMER DISCLOSURES</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div col-10">
+                                    <div class="row">
+                                        <div class="w-5 text-center">
+                                            <span><strong>I.</strong></span>
+                                        </div>
+                                        <div class="w-95">
+                                            <span><strong>WAIVER OF LIABILITY FOR GLASS RESTORATION</strong></span>
+                                            <p>Customer acknowledges that glass breakage is an ordinary risk associated with glass restoration services no matter how carefully the service is performed.harmless from any and all liability, claims, demands and causes of action whatsoever arising out of or related to any loss, damage, or injury caused by or through the glass restoration process, including glass breakage. Customer hereby accepts full responsibility for the risk of loss associated with glass restoration process. GlassTech does not guaranty or warrant that Customer’s glass will not break as a result of the glass restoration process, and such guaranty or warranty is hereby disclaimed by Customer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-div col-2">
+                                    <label class="text-muted">Customer Initials</label>
+                                    <textarea class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-10">
+                                    <div class="row">
+                                        <div class="w-5 text-center">
+                                            <span><strong>II.</strong></span>
+                                        </div>
+                                        <div class="w-95">
+                                            <span><strong>CONDENSATION ACKNOWLEDGMENT</strong></span>
+                                            <p>Customer acknowledges that glass breakage is an ordinary risk associated with glass restoration services no matter how carefully the service is performed.harmless from any and all liability, claims, demands and causes of action whatsoever arising out of or related to any loss, damage, or injury caused by or through the glass restoration process, including glass breakage. Customer hereby accepts full responsibility for the risk of loss associated with glass restoration process. GlassTech does not guaranty or warrant that Customer’s glass will not break as a result of the glass restoration process, and such guaranty or warranty is hereby disclaimed by Customer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-div col-2">
+                                    <label class="text-muted">Customer Initials</label>
+                                    <textarea class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-10">
+                                    <div class="row">
+                                        <div class="w-5 text-center">
+                                            <span><strong>III.</strong></span>
+                                        </div>
+                                        <div class="w-95">
+                                            <span><strong>CESSATION OF GLASS RESTORATION SERVICES DUE TO DEFECT</strong></span>
+                                            <p>Customer acknowledges that glass breakage is an ordinary risk associated with glass restoration services no matter how carefully the service is performed.harmless from any and all liability, claims, demands and causes of action whatsoever arising out of or related to any loss, damage, or injury caused by or through the glass restoration process, including glass breakage. Customer hereby accepts full responsibility for the risk of loss associated with glass restoration process. GlassTech does not guaranty or warrant that Customer’s glass will not break as a result of the glass restoration process, and such guaranty or warranty is hereby disclaimed by Customer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-div col-2">
+                                    <label class="text-muted">Customer Initials</label>
+                                    <textarea class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-10">
+                                    <div class="row">
+                                        <div class="w-5 text-center">
+                                            <span><strong>IV.</strong></span>
+                                        </div>
+                                        <div class="w-95">
+                                            <span><strong>METAL RESTORATION SERVICES</strong></span>
+                                            <p>Customer acknowledges that glass breakage is an ordinary risk associated with glass restoration services no matter how carefully the service is performed.harmless from any and all liability, claims, demands and causes of action whatsoever arising out of or related to any loss, damage, or injury caused by or through the glass restoration process, including glass breakage. Customer hereby accepts full responsibility for the risk of loss associated with glass restoration process. GlassTech does not guaranty or warrant that Customer’s glass will not break as a result of the glass restoration process, and such guaranty or warranty is hereby disclaimed by Customer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-div col-2">
+                                    <label class="text-muted">Customer Initials</label>
+                                    <textarea class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-10">
+                                    <div class="row">
+                                        <div class="w-5 text-center">
+                                            <span><strong>V.</strong></span>
+                                        </div>
+                                        <div class="w-95">
+                                            <span><strong>METAL COATING SERVICES</strong></span>
+                                            <p>Customer acknowledges that glass breakage is an ordinary risk associated with glass restoration services no matter how carefully the service is performed.harmless from any and all liability, claims, demands and causes of action whatsoever arising out of or related to any loss, damage, or injury caused by or through the glass restoration process, including glass breakage. Customer hereby accepts full responsibility for the risk of loss associated with glass restoration process. GlassTech does not guaranty or warrant that Customer’s glass will not break as a result of the glass restoration process, and such guaranty or warranty is hereby disclaimed by Customer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-div col-2">
+                                    <label class="text-muted">Customer Initials</label>
+                                    <textarea class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="text-div col-10">
+                                    <div class="row">
+                                        <div class="w-5 text-center">
+                                            <span><strong>VI.</strong></span>
+                                        </div>
+                                        <div class="w-95">
+                                            <span><strong>METAL COATING WARRANTY DISCLOSURE</strong></span>
+                                            <p>Customer acknowledges that glass breakage is an ordinary risk associated with glass restoration services no matter how carefully the service is performed.harmless from any and all liability, claims, demands and causes of action whatsoever arising out of or related to any loss, damage, or injury caused by or through the glass restoration process, including glass breakage. Customer hereby accepts full responsibility for the risk of loss associated with glass restoration process. GlassTech does not guaranty or warrant that Customer’s glass will not break as a result of the glass restoration process, and such guaranty or warranty is hereby disclaimed by Customer.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-div col-2">
+                                    <label class="text-muted">Customer Initials</label>
+                                    <textarea class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center title">
+                            <strong>TERMS &amp; CONDITIONS OF SALE</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div col-6">
+                                    <p>SCAR, LLC, d/b/a “Glasstech” and/or “Scratch Masters” (“Company”) proposes to provide the services indicated herein to Customer at the Job Location (hereinafter the “Project”) for the price proposal. This proposal shall be effective for a period of 30 days from presentation by Company to Customer. Customer’s signature hereon and delivery to the Company within 30 days from presentation shall constitute acceptance of the Company’s proposal and effectuate a binding contract between the parties upon the terms stated on this agreement which includes the the following terms and conditions on the reverse hereof:</p>
+                                </div>
+                                 <div class="text-div col-6">
+                                    <span><strong>1. PAYMENT TERMS:</strong></span>
+                                    <p>Unless otherwise noted on the front side of this agreement, Customer shall pay Company (i) aninitial deposit of () percent of the total cost, plus sales tax, to Company upon signing this Agreement, and (ii) the remaining () percent of the total cost, plus sales tax, upon Company’s completion of the Project. Balances which remain unpaid over ten (10) days from the date due shall accrue interest at the rate of 1.5% per month until paid in in Palm Beach County, Florida. No payments due Company hereunder are contingent upon</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page new-page">
+                <div class="row mt-2"/>
+                <div class="row">
+                    <div class="col-12 information-div">
+                        <div class="text-center title">
+                            <strong>CLIENT DATA</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div w-40">
+                                    <label class="text-muted">Client Full Name (or Company Name)</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-40">
+                                    <label class="text-muted">Contractor Contact</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                                <div class="text-div w-20">
+                                    <label class="text-muted">Agreement Number</label>
+                                    <input type="text" class="form-control" readonly="1"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 information-div">
+                        <div class="text-center title">
+                            <strong>TERMS &amp; CONDITIONS OF SALE (CON’T)</strong>
+                        </div>
+                        <div class="input-div">
+                            <div class="row">
+                                <div class="text-div col-6">
+                                    <p>SCAR, LLC, d/b/a “Glasstech” and/or “Scratch Masters” (“Company”) proposes to provide the services indicated herein to Customer at the Job Location (hereinafter the “Project”) for the price proposal. This proposal shall be effective for a period of 30 days from presentation by Company to Customer. Customer’s signature hereon and delivery to the Company within 30 days from presentation shall constitute acceptance of the Company’s proposal and effectuate a binding contract between the parties upon the terms stated on this agreement which includes the the following terms and conditions on the reverse hereof:</p>
+                                </div>
+                                 <div class="text-div col-6">
+                                    <span><strong>1. PAYMENT TERMS:</strong></span>
+                                    <p>Unless otherwise noted on the front side of this agreement, Customer shall pay Company (i) aninitial deposit of () percent of the total cost, plus sales tax, to Company upon signing this Agreement, and (ii) the remaining () percent of the total cost, plus sales tax, upon Company’s completion of the Project. Balances which remain unpaid over ten (10) days from the date due shall accrue interest at the rate of 1.5% per month until paid in in Palm Beach County, Florida. No payments due Company hereunder are contingent upon</p>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-12">
+                                    <div class="row text-center">
+                                        <strong>I have read, agree and hereby accept the terms and conditions set forth in this agreement.</strong>
+                                    </div>
+                                    <div class="row">
+                                        <div class="text-div col-8 sign">
+                                            <label class="text-muted">Customer Signature</label>
+                                            <textarea type="text" class="form-control" readonly="1"/>
+                                        </div>
+                                        <div class="text-div col-4 sign-date">
+                                            <label class="text-muted">Signature Date</label>
+                                            <textarea type="text" class="form-control" readonly="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_service_agreement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="company" t-value="doc.company_id"/>
+                <t t-call="service_agreement_report.report_service_agreement_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>
